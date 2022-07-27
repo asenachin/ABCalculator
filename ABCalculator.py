@@ -11,7 +11,7 @@ def popup_window():
     window.geometry("300x300")
     window.title("А/В калькулятор")
     
-    # Добавление кнопки закрытия программы
+    # Добавление кнопки закрытия окна
     btnClosePopup = tk.Button(window, text="Закрыть", font=('Helvetica', 10, 'bold'), command=window.destroy)
     btnClosePopup.place(x=180, y=250, width=90, height=30)
 
