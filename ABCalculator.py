@@ -34,31 +34,80 @@ def popup_window(n1, c1, n2, c2):
     window.title("А/В калькулятор")
     
     # Добавление окна вывода текста
-    txtOutput = tk.Text(window, font=('Helvetica', 12, 'bold'))
+    txtOutput = tk.Text(window, font=('Courier', 12, 'bold')) # Helvetica
     txtOutput.place(x=15, y=115, width=470, height=300)
     
     # Добавление заголовка
-    txtOutput.insert(tk.END, '                                         '
-        + '           Контрольная     Тестовая' + os.linesep)
-    txtOutput.insert(tk.END, '                                         '
-        + '           Группа                  Группа' + os.linesep)
+    txtOutput.insert(tk.END, '\t\t\t' 
+        + 'Контрольная   Тестовая' + os.linesep)        
+    txtOutput.insert(tk.END, '\t\t\t'
+        + 'Группа        Группа' + os.linesep)
     txtOutput.insert(tk.END, '-----------------------------------------'
-        + '-----------------------------------------' + os.linesep)
+        + '-----' + os.linesep)
     
     # Добавление вывода конверсии и стандартного отклонения
     p1 = c1/n1
     p2 = c2/n2
-    txtOutput.insert(tk.END, 'Конверсия                                ' 
-        + num_percent(p1) + '      ' + num_percent(p2) + os.linesep)
+    txtOutput.insert(tk.END, 'Конверсия             ' 
+        + num_percent(p1) + ' ' + num_percent(p2) + os.linesep)
     sigma1 = math.sqrt(p1*(1-p1)/n1)
     sigma2 = math.sqrt(p2*(1-p2)/n2)
-    txtOutput.insert(tk.END, 'Стандартное отклонение  ' 
-    + num_percent(sigma1) + '        ' + num_percent(sigma2) + os.linesep)
+    txtOutput.insert(tk.END, 'Стандартное отклонение' 
+    + num_percent(sigma1) + ' ' + num_percent(sigma2) + os.linesep)
     txtOutput.insert(tk.END, '-----------------------------------------'
-        + '-----------------------------------------' + os.linesep)
+        + '-----' + os.linesep)
+        
+    # Добавление вывода возможных разбросов
+    z1 = 1.96
+    lower1_95 = p1-z1*sigma1
+    if lower1_95 < 0:
+        lower1_95 = 0
+    upper1_95 = p1+z1*sigma1
+    if upper1_95 > 1:
+        upper1_95 = 1
+    lower2_95 = p2-z1*sigma2
+    if lower2_95 < 0:
+        lower2_95 = 0
+    upper2_95 = p2+z1*sigma2
+    if upper2_95 > 1:
+        upper2_95 = 1
+    txtOutput.insert(tk.END, '95% Возможный разброс ' 
+        + os.linesep)
+    txtOutput.insert(tk.END, '                   От ' 
+        + num_percent(lower1_95)  + '\t'
+        + num_percent(lower2_95) + os.linesep)
+    txtOutput.insert(tk.END, '                   До ' 
+        + num_percent(upper1_95)  + '\t'
+        + num_percent(upper2_95) + os.linesep)
+    txtOutput.insert(tk.END, '-----------------------------------------'
+        + '-----' + os.linesep)
+    z2 = 2.575
+    lower1_99 = p1-z2*sigma1
+    if lower1_99 < 0:
+        lower1_99 = 0
+    upper1_99 = p1+z2*sigma1
+    if upper1_99 > 1:
+        upper1_99 = 1
+    lower2_99 = p2-z2*sigma2
+    if lower2_99 < 0:
+        lower2_99 = 0
+    upper2_99 = p2+z2*sigma2
+    if upper2_99 > 1:
+        upper2_99 = 1
+    txtOutput.insert(tk.END, '99% Возможный разброс ' 
+        + os.linesep)
+    txtOutput.insert(tk.END, '                   От ' 
+        + num_percent(lower1_99)  + '\t'
+        + num_percent(lower2_99) + os.linesep)
+    txtOutput.insert(tk.END, '                   До ' 
+        + num_percent(upper1_99)  + '\t'
+        + num_percent(upper2_99) + os.linesep)
+    txtOutput.insert(tk.END, '-----------------------------------------'
+        + '-----' + os.linesep)
         
     # Добавление кнопки закрытия окна
-    btnClosePopup = tk.Button(window, text="Закрыть", font=('Helvetica', 10, 'bold'), command=window.destroy)
+    btnClosePopup = tk.Button(window, text="Закрыть", 
+        font=('Helvetica', 10, 'bold'), command=window.destroy)
     btnClosePopup.place(x=190, y=450, width=90, height=30)
     
     # Перевод фокуса на созданное окно
