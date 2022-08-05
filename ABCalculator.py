@@ -6,6 +6,9 @@ import os
 import math
 from scipy.stats import norm
 
+#from tkinter import font
+#from gi.repository import Gtk
+
 # Функция закрытия программы
 def do_close():
     root.destroy()
@@ -35,7 +38,7 @@ def popup_window(n1, c1, n2, c2):
     window.title("А/В калькулятор")
     
     # Добавление окна вывода текста
-    txtOutput = tk.Text(window, font=('Courier', 12, 'bold')) # Helvetica
+    txtOutput = tk.Text(window, font=('Courier', 12, 'bold')) #Helvetica 
     txtOutput.place(x=15, y=115, width=470, height=320)
     
     # Добавление заголовка
@@ -113,6 +116,10 @@ def popup_window(n1, c1, n2, c2):
     txtOutput.insert(tk.END, 'P = ' + "{:.7f}".format(p_value)
         + os.linesep)
         
+    #settings = Gtk.Settings.get_default()
+    #font_name = settings.get_property('gtk-font-name')
+    #txtOutput.insert(tk.END, font_name)    
+        
     # Добавление оценки результатов
     confidence_95 = False
     if p_value < 0.025 or p_value > 0.975:
@@ -143,7 +150,7 @@ def popup_window(n1, c1, n2, c2):
     else:
         lblResult99 = tk.Label(window, text = 'Нет', 
         font=('Helvetica', 12, 'bold'), fg = '#ff0000')
-        lblResult99.place(x=180, y=65)    
+        lblResult99.place(x=180, y=65) 
         
     # Добавление кнопки закрытия окна
     btnClosePopup = tk.Button(window, text="Закрыть", 
